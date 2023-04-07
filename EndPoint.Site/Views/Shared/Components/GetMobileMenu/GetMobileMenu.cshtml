@@ -1,0 +1,33 @@
+﻿@using WebStoreCore.Application.Services.Common.Queries.GetMenuItem;
+@model List<MenuItemDto>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+
+
+    <li class="has-sub">
+        <a href="#" class="category-level-1">
+            @item.Name
+        </a>
+
+        @if (item.Child.Count() > 0)
+        {
+    <ul>
+
+        @foreach (var itemChild in item.Child)
+        {
+            <li>
+                        <a href="~/products/index?CatId=@itemChild.CatId" class="category-level-2">
+                    @itemChild.Name
+                </a>
+            </li>
+        }
+    </ul>
+        }
+
+    </li>
+}
+

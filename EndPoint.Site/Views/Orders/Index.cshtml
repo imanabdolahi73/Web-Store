@@ -1,0 +1,70 @@
+﻿@using WebStoreCore.Application.Services.Orders.Queries.GetUserOrders
+@using WebStoreCore.Comon;
+@model List<GetUserOrdersDto>
+ 
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>سفارشات شما</h1>
+<section class="cart-home">
+    <div class="post-item-cart d-block order-2">
+        <div class="content-page">
+            <div class="cart-form">
+                <form action="#" class="c-form">
+                    <table class="table-cart cart table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="product-cart-name">شماره سفارش</th>
+                                <th scope="col" class="product-cart-quantity">شماره پرداخت</th>
+                                <th scope="col" class="product-cart-price">وضعیت</th>
+                                <th scope="col" class="product-cart-Total">محصولات این سفارش</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="product-cart-price">
+                                        <span class="amount">
+                                            @item.OrderId
+                                        </span>
+                                    </td>
+                                    <td class="product-cart-price">
+                                        <span class="amount">
+                                            @item.RequestPayId
+                                        </span>
+                                    </td>
+                                    <td class="product-cart-price">
+                                        <span class="amount">
+                                            @{
+                                                string state = EnumHelpers<WebStoreCore.Domain.Entities.Orders.OrderState>.GetDisplayValue(item.OrderState);
+                                            }
+                                            @state
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            @foreach (var detail in item.OrderDetails)
+                                            {
+                                                <tr>
+                                                    <td> @detail.ProductName</td>
+                                                    <td> @detail.Price.ToString("n0") تومان</td>
+                                                    <td> @detail.Count عدد</td>
+                                                </tr>
+                                            }
+                                        </table>
+
+                                    </td>
+                                </tr>
+                                }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</section>
